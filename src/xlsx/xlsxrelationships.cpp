@@ -132,7 +132,7 @@ QByteArray Relationships::saveToXmlData() const
 {
     QByteArray data;
     QBuffer buffer(&data);
-    buffer.open(QIODevice::WriteOnly);
+    buffer.open(QIODeviceBase::WriteOnly);
     saveToXmlFile(&buffer);
 
     return data;
@@ -166,7 +166,7 @@ bool Relationships::loadFromXmlData(const QByteArray &data)
 {
     QBuffer buffer;
     buffer.setData(data);
-    buffer.open(QIODevice::ReadOnly);
+    buffer.open(QIODeviceBase::ReadOnly);
     return loadFromXmlFile(&buffer);
 }
 

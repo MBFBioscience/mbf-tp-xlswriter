@@ -1045,7 +1045,7 @@ bool Document::save() const
 bool Document::saveAs(const QString &name) const
 {
     QFile file(name);
-    if (file.open(QIODevice::WriteOnly))
+    if (file.open(QIODeviceBase::WriteOnly))
         return saveAs(&file);
     return false;
 }

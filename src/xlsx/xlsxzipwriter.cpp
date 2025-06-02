@@ -24,13 +24,13 @@
 ****************************************************************************/
 #include "xlsxzipwriter_p.h"
 #include <QDebug>
-#include <private/qzipwriter_p.h>
+#include <QtCore/private/qzipwriter_p.h>
 
 namespace QXlsx {
 
 ZipWriter::ZipWriter(const QString &filePath)
 {
-    m_writer = new QZipWriter(filePath, QIODevice::WriteOnly);
+    m_writer = new QZipWriter(filePath, QIODeviceBase::WriteOnly);
     m_writer->setCompressionPolicy(QZipWriter::AutoCompress);
 }
 

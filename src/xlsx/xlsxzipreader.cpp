@@ -25,8 +25,8 @@
 
 #include "xlsxzipreader_p.h"
 
-#include <private/qzipreader_p.h>
-#include <QtCore/qvector.h>
+#include <QtCore/private/qzipreader_p.h>
+#include "QVector.h"
 
 namespace QXlsx {
 
@@ -48,7 +48,7 @@ ZipReader::~ZipReader()
 
 void ZipReader::init()
 {
-    auto allFiles = m_reader->fileInfoList();
+	QList<QZipReader::FileInfo> allFiles = QList<QZipReader::FileInfo>::fromVector(m_reader->fileInfoList());
     foreach (const QZipReader::FileInfo &fi, allFiles) {
         if (fi.isFile)
             m_filePaths.append(fi.filePath);

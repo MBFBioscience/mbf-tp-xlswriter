@@ -86,7 +86,7 @@ void DrawingAnchor::setObjectPicture(const QImage &img)
 {
     QByteArray ba;
     QBuffer buffer(&ba);
-    buffer.open(QIODevice::WriteOnly);
+    buffer.open(QIODeviceBase::WriteOnly);
     img.save(&buffer, "PNG");
 
     m_pictureFile = QSharedPointer<MediaFile>(
