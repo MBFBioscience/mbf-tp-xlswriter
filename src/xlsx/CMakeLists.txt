@@ -18,34 +18,39 @@ message(STATUS "QT PRIVATE INCLUDE DIRS : ${Qt6Widgets_PRIVATE_INCLUDE_DIRS}")
 add_definitions(-DXLSX_NO_LIB)
 
 ################################################################################
-# Build options
-################################################################################
-if (MSVC)
-    add_compile_options(/MP)
-    add_definitions(-DUNICODE -D_UNICODE) 
-else ()
-    set(CMAKE_CXX_STANDARD 11)
-endif()
-
-################################################################################
 # Source files
 ################################################################################
-file (GLOB_RECURSE XLSXWRITER_FILES_SRC
+file (GLOB XLSXWRITER_FILES_SRC
   RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
   *.cpp)
-list(REMOVE_ITEM XLSXWRITER_FILES_SRC
+list(REMOVE_ITEM ${XLSXWRITER_FILES_SRC}
   xlsxwriter.cpp)
 
-file (GLOB_RECURSE XLSXWRITER_FILES_HDR
+file (GLOB XLSXWRITER_FILES_HDR
   RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
   *.h)
-list(REMOVE_ITEM XLSXWRITER_FILES_HDR
+list(REMOVE_ITEM ${XLSXWRITER_FILES_HDR}
   xlsxwriter.h)
 
 ################################################################################
 # Link libraries
 ################################################################################
-add_library(xlsxWriter STATIC ${XLSXWRITER_FILES_SRC})
+add_library(${PROJECT_NAME} STATIC ${XLSXWRITER_FILES_SRC})
+
+################################################################################
+# Build options
+################################################################################
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if (MSVC)
+    add_definitions(-DUNICODE -D_UNICODE)
+	add_compile_options(/permissive-)
+	target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+	target_compile_options(${PROJECT_NAME} PUBLIC "/Zc:__cplusplus /permissive-")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17 /Zc:__cplusplus /permissive- ")
+	string(APPEND CMAKE_CXX_FLAGS " /Zc:__cplusplus")
+endif()
 
 ################################################################################
 # Header file set

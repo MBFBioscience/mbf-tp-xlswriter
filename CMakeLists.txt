@@ -7,6 +7,6 @@ cmake_minimum_required(VERSION 3.23.0)
 project(mbf-tp-xlswriter)
 
 ################################################################################
-# Finally, go to subfolder
+# Finally, go to xlsx subfolder
 ################################################################################
 add_subdirectory(src/xlsx)
